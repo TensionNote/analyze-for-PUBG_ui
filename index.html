@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Landing Point System</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
+  </head>
+<body>
+
+<script type="text/javascript">
+$(function() {
+  $('button#add').click(function(){
+  var tr_form = '' +
+    '<tr>'+
+    '<div class="field">' +
+    '<div class="control">' +
+    '<td><input class="input is-info" type="text" placeholder="PUBG Match ID" name="match_id[]"></td>' +
+    '</div>' +
+    '</div>' +
+    '</tr>';
+  var table = document.getElementById("table");
+  var row = table.insertRow(-1);
+  var cell = row.insertCell(-1);
+  cell.innerHTML =tr_form
+  });
+});
+
+$(function() {
+  $('button#delete').click(function(){
+    var table = document.getElementById("table");
+    table.deleteRow(-1)
+  });
+});
+
+$(function() {
+  var URL = "";
+  $('button#send').click(function(){
+     $.ajax({
+         type: "GET",
+         url: URL, 
+         dataType: "json",
+         error: function() {
+             alert('ERROR: match idに誤りがないかを確認して下さい');
+             $("#send").removeAttr("disabled");
+         },
+         success: function(res) {
+             alert('SUCCESS!');
+             $("#send").removeAttr("disabled");
+         }
+    });
+  });
+});
+
+</script>
+
+<section class="hero is-dark">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Landing Point System
+      </h1>
+      <h2 class="subtitle is-6">
+        「航路」「各プレイヤーのパラシュート降下地点図」を作成
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+<div class="container">
+  <form>
+    <button id="add" type="button" class="button is-primary">追加</button>
+    <button id="delete" type="button" class="button is-danger">削除</button>
+    <table class="table is-fullwidth" id="table">
+      <tbody>
+        <tr>
+          <div class="field">
+            <div class="control">
+              <td><input class="input is-info" type="text" placeholder="PUBG Match ID" name="match_id[]"></td>
+            </div>
+          </div>
+        </tr>
+    </tbody>
+  </table>
+  <button id="send" "button" class="button is-primary is-warning">送信</button>
+  </form>
+<div>
+</section>
+
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Landing Point System</strong> by <a href="">TensionNote</a>.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
