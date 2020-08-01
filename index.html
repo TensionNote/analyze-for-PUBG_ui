@@ -36,7 +36,9 @@
 
 $(function() {
   $('button#send').click(function(){
-    var match=document.getElementById('match').value
+    let element=document.getElementById('send');
+    element.className='button is-warning is-loading'
+    var match=document.getElementById('match').value;
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify({"match":match});
@@ -48,9 +50,16 @@ $(function() {
     };
     fetch("https://d4qp6vcju0.execute-api.ap-northeast-1.amazonaws.com/dev/make-landing-point-02", requestOptions)
     .then(response => response.text())
-    // .then(result => alert(JSON.parse(result).body))
-    .then(result => window.location.href = JSON.parse(result).body)
-    .catch(error => console.log('error', error));
+    .then(result => {
+        window.location.href = JSON.parse(result).body;
+        element.className='button is-primary is-warning'
+        alert("Success!");
+      })
+    .catch(error => {
+        console.log('error', error);
+        element.className='button is-primary is-warning'
+        alert("Error");
+      });
   });
 });
 
