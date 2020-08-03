@@ -39,16 +39,17 @@ $(function() {
     let element=document.getElementById('send');
     element.className='button is-warning is-loading'
     var match=document.getElementById('match').value;
+    var region=document.getElementById('region').value;
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    var raw = JSON.stringify({"match":match});
+    var raw = JSON.stringify({"match":match,"region":region});
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
     };
-    fetch("https://d4qp6vcju0.execute-api.ap-northeast-1.amazonaws.com/dev/make-landing-point-02", requestOptions)
+    fetch("https://youeailb5j.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-03", requestOptions)
     .then(response => response.text())
     .then(result => {
         window.location.href = JSON.parse(result).body;
@@ -83,6 +84,17 @@ $(function() {
   <form>
     <!-- <button id="add" type="button" class="button is-primary">追加</button>
     <button id="delete" type="button" class="button is-danger">削除</button> -->
+    <div class="control has-icons-left">
+      <div class="select">
+        <select id="region">
+          <option selected value="as">Asia</option>
+          <option value="tournament">Tournament</option>
+        </select>
+      </div>
+        <span class="icon is-left">
+          <i class="fas fa-globe"></i>
+        </span>
+    </div>
     <table class="table is-fullwidth" id="table">
       <tbody>
         <tr>
