@@ -5,7 +5,7 @@
     <title>Landing Point System</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
   </head>
 <body>
 
@@ -35,9 +35,9 @@
 // });
 
 $(function() {
-  $('button#send').click(function(){
-    let element=document.getElementById('send');
-    element.className='button is-warning is-loading'
+  $('button#sendLP').click(function(){
+    let element=document.getElementById('sendLP');
+    element.className='button is-primary is-loading'
     var match=document.getElementById('match').value;
     var region=document.getElementById('region').value;
     var myHeaders = new Headers();
@@ -49,16 +49,44 @@ $(function() {
         body: raw,
         redirect: 'follow'
     };
-    fetch("https://youeailb5j.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-03", requestOptions)
+    fetch("https://56s4dnq7n3.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-04", requestOptions)
     .then(response => response.text())
     .then(result => {
         window.location.href = JSON.parse(result).body;
-        element.className='button is-primary is-warning'
+        element.className='button is-primary'
         alert("Success!");
       })
     .catch(error => {
         console.log('error', error);
-        element.className='button is-primary is-warning'
+        element.className='button is-primary'
+        alert("Error");
+      });
+  });
+  $('button#sendRP').click(function(){
+    let element=document.getElementById('sendRP');
+    element.className='button is-link is-loading'
+    var match=document.getElementById('match').value;
+    var region=document.getElementById('region').value;
+    var teamid=document.getElementById('teamid').value;
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({"match":match,"region":region,"teamid":teamid});
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    fetch("https://56s4dnq7n3.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-04", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+        window.location.href = JSON.parse(result).body;
+        element.className='button is-link'
+        alert("Success!");
+      })
+    .catch(error => {
+        console.log('error', error);
+        element.className='button is-link'
         alert("Error");
       });
   });
@@ -73,42 +101,85 @@ $(function() {
         Landing Point System
       </h1>
       <h2 class="subtitle is-6">
-        「航路」「各プレイヤーのパラシュート降下地点図」を作成
+        「各プレイヤーのパラシュート降下地点図」「各チームのルート図」を生成
       </h2>
     </div>
   </div>
 </section>
 
 <section class="section">
-<div class="container">
-  <form>
-    <!-- <button id="add" type="button" class="button is-primary">追加</button>
-    <button id="delete" type="button" class="button is-danger">削除</button> -->
-    <div class="control has-icons-left">
-      <div class="select">
-        <select id="region">
-          <option selected value="as">Asia</option>
-          <option value="tournament">Tournament</option>
+<div class="container"><form>
+
+  <div class="columns">
+      <div class="column">
+        <div class="control has-icons-left">
+          <div class="select">
+            <select id="region">
+              <option selected value="as">Asia</option>
+              <option value="tournament">Tournament</option>
+            </select>
+          </div>
+          <span class="icon is-left">
+            <i class="fas fa-globe"></i>
+          </span>
+      </div>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column is-full">
+        <div class="field">
+          <div class="control">
+            <input class="input" type="text" placeholder="PUBG Match ID" id="match">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="columns">
+    <div class="column is-half">
+      <div class="select is-primary is-fullwidth">
+        <select>
+          <option>All Team</option>
         </select>
       </div>
-        <span class="icon is-left">
-          <i class="fas fa-globe"></i>
-        </span>
     </div>
-    <table class="table is-fullwidth" id="table">
-      <tbody>
-        <tr>
-          <div class="field">
-            <div class="control">
-              <td><input class="input is-info" type="text" placeholder="PUBG Match ID" id="match"></td>
-            </div>
-          </div>
-        </tr>
-    </tbody>
-  </table>
-  <button id="send" type="button" class="button is-primary is-warning">送信</button>
-  </form>
-<div>
+    <div class="column">
+    <div class="buttons">
+      <button class="button is-primary" type="button" button id="sendLP">Landing Point</button>
+    </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-half">
+      <div class="select is-info is-fullwidth">
+        <select id="teamid">
+          <option selected value="1">Team01</option>
+          <option value="2">Team02</option>
+          <option value="3">Team03</option>
+          <option value="4">Team04</option>
+          <option value="5">Team05</option>
+          <option value="6">Team06</option>
+          <option value="7">Team07</option>
+          <option value="8">Team08</option>
+          <option value="9">Team09</option>
+          <option value="10">Team10</option>
+          <option value="11">Team11</option>
+          <option value="12">Team12</option>
+          <option value="13">Team13</option>
+          <option value="14">Team14</option>
+          <option value="15">Team15</option>
+          <option value="16">Team16</option>
+        </select>
+      </div>
+    </div>
+    <div class="column is-3">
+      <div class="buttons">
+        <button class="button is-link" type="button" button id="sendRP">Routing Path</button>
+      </div>
+    </div>
+  </div>
+</form><div>
 </section>
 
 <footer class="footer">
