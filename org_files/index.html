@@ -6,10 +6,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-calendar@6.0.9/dist/css/bulma-calendar.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bulma-calendar@6.0.9/dist/js/bulma-calendar.min.js"></script> -->
   </head>
 <body>
 
 <script type="text/javascript">
+// var calendars = bulmaCalendar.attach('[type="date"]', options);
 // $(function() {
 //   $('button#add').click(function(){
 //   var tr_form = '' +
@@ -71,6 +74,32 @@ $(function() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify({"match":match,"region":region,"teamid":teamid});
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    fetch("https://56s4dnq7n3.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-04", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+        window.location.href = JSON.parse(result).body;
+        element.className='button is-link'
+        alert("Success!");
+      })
+    .catch(error => {
+        console.log('error', error);
+        element.className='button is-link'
+        alert("Error");
+      });
+  });
+  $('button#sendResult').click(function(){
+    let element=document.getElementById('sendResult');
+    element.className='button is-link is-loading'
+    var date=document.getElementById('date').value;
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({"date":date});
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -179,6 +208,18 @@ $(function() {
       </div>
     </div>
   </div>
+  <hr>
+  <div class="columns">
+    <div class="column is-2">
+      <input id="date" type="date">
+    </div>
+    <div class="column is-3">
+      <div class="buttons are-small">
+        <button class="button is-success" type="button" button id="sendResult">Scrim Result</button>
+      </div>
+    </div>
+  </div>
+
 </form><div>
 </section>
 
