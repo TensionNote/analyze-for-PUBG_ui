@@ -52,7 +52,7 @@ $(function() {
         body: raw,
         redirect: 'follow'
     };
-    fetch("https://56s4dnq7n3.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-04", requestOptions)
+    fetch("https://bewvpdfpe8.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-05", requestOptions)
     .then(response => response.text())
     .then(result => {
         window.location.href = JSON.parse(result).body;
@@ -80,7 +80,7 @@ $(function() {
         body: raw,
         redirect: 'follow'
     };
-    fetch("https://56s4dnq7n3.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-04", requestOptions)
+    fetch("https://bewvpdfpe8.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-05", requestOptions)
     .then(response => response.text())
     .then(result => {
         window.location.href = JSON.parse(result).body;
@@ -95,7 +95,7 @@ $(function() {
   });
   $('button#sendResult').click(function(){
     let element=document.getElementById('sendResult');
-    element.className='button is-link is-loading'
+    element.className='button is-success is-loading'
     var date=document.getElementById('date').value;
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -106,16 +106,15 @@ $(function() {
         body: raw,
         redirect: 'follow'
     };
-    fetch("https://56s4dnq7n3.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-04", requestOptions)
+    fetch("https://bewvpdfpe8.execute-api.ap-northeast-1.amazonaws.com/default/make-landing-point-05", requestOptions)
     .then(response => response.text())
     .then(result => {
-        window.location.href = JSON.parse(result).body;
-        element.className='button is-link'
+        element.className='button is-success'
         alert("Success!");
       })
     .catch(error => {
         console.log('error', error);
-        element.className='button is-link'
+        element.className='button is-success'
         alert("Error");
       });
   });
